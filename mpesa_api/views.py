@@ -57,8 +57,11 @@ def validation(request):
         "ResultDesc": "Accepted"
     }
     return JsonResponse(dict(context))
+
+
 @csrf_exempt
 def confirmation(request):
+    """ The transaction will be posted here by safaricom server after you submit a simulate request. Extract what you need and save"""
     mpesa_body =request.body.decode('utf-8')
     mpesa_payment = json.loads(mpesa_body)
     payment = MpesaPayment(
