@@ -8,8 +8,8 @@ from .models import MpesaPayment
 
 
 def getAccessToken(request):
-    consumer_key = '7RTRwuqalt1WXvy6LUEjozMCVKCyC4o8'
-    consumer_secret = 'Xyi0iYyfgxLy1HcW'
+    consumer_key = '7RTRwuqalt1WXvy6LUEjozMCVKCyC4o8' # Replace with your consumer key
+    consumer_secret = 'Xyi0iYyfgxLy1HcW' # Replace with your consumer secret
     api_URL = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
     r = requests.get(api_URL, auth=HTTPBasicAuth(consumer_key, consumer_secret))
     mpesa_access_token = json.loads(r.text)
@@ -27,9 +27,9 @@ def lipa_na_mpesa_online(request):
         "Timestamp": LipanaMpesaPpassword.lipa_time,
         "TransactionType": "CustomerPayBillOnline",
         "Amount": 1,
-        "PartyA": 254796008376,  # replace with your phone number to get stk push
+        "PartyA": 254708374149,  # Change it to your number when going live
         "PartyB": LipanaMpesaPpassword.Business_short_code,
-        "PhoneNumber": 254796008376,  # replace with your phone number to get stk push
+        "PhoneNumber": 2547XXXXXXXX,  # replace with your phone number to get stk push
         "CallBackURL": "https://sandbox.safaricom.co.ke/mpesa/",
         "AccountReference": "JohnG",
         "TransactionDesc": "Testing stk push"
@@ -41,7 +41,7 @@ def register_urls(request):
     access_token = MpesaAccessToken.validated_mpesa_access_token
     api_url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl"
     headers = {"Authorization": "Bearer %s" % access_token}
-    options = {"ShortCode": LipanaMpesaPpassword.Business_short_code,
+    options = {"ShortCode": "601481",
                "ResponseType": "Completed",
                "ConfirmationURL": "https://91563395.ngrok.io/api/v1/c2b/confirmation",
                "ValidationURL": "https://91563395.ngrok.io/api/v1/c2b/validation"}
